@@ -1,0 +1,282 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  :root {
+    --background: 240 10% 3.5%;
+    --foreground: 180 20% 96%;
+
+    --card: 240 12% 6%;
+    --card-foreground: 180 20% 96%;
+
+    --popover: 240 12% 6%;
+    --popover-foreground: 180 20% 96%;
+
+    --primary: 195 100% 55%;
+    --primary-foreground: 240 10% 4%;
+
+    --secondary: 270 90% 65%;
+    --secondary-foreground: 240 10% 4%;
+
+    --muted: 240 8% 12%;
+    --muted-foreground: 240 5% 65%;
+
+    --accent: 140 100% 55%;
+    --accent-foreground: 240 10% 4%;
+
+    --destructive: 0 84% 60%;
+    --destructive-foreground: 210 40% 98%;
+
+    --border: 240 8% 15%;
+    --input: 240 8% 12%;
+    --ring: 195 100% 55%;
+
+    --radius: 0.75rem;
+
+    /* Neon palette */
+    --neon-blue: 195 100% 55%;
+    --neon-green: 140 100% 55%;
+    --neon-purple: 270 90% 65%;
+    --neon-pink: 320 100% 65%;
+
+    /* Gradients */
+    --gradient-hero: radial-gradient(ellipse at top, hsl(270 90% 25% / 0.35), transparent 60%),
+                     radial-gradient(ellipse at bottom right, hsl(195 100% 35% / 0.3), transparent 60%),
+                     radial-gradient(ellipse at bottom left, hsl(140 100% 25% / 0.2), transparent 60%);
+    --gradient-neon: linear-gradient(135deg, hsl(var(--neon-blue)), hsl(var(--neon-purple)));
+    --gradient-neon-2: linear-gradient(135deg, hsl(var(--neon-green)), hsl(var(--neon-blue)));
+    --gradient-text: linear-gradient(135deg, hsl(var(--neon-blue)), hsl(var(--neon-green)) 50%, hsl(var(--neon-purple)));
+
+    /* Shadows / glows */
+    --glow-blue: 0 0 20px hsl(var(--neon-blue) / 0.6), 0 0 40px hsl(var(--neon-blue) / 0.3);
+    --glow-green: 0 0 20px hsl(var(--neon-green) / 0.6), 0 0 40px hsl(var(--neon-green) / 0.3);
+    --glow-purple: 0 0 20px hsl(var(--neon-purple) / 0.6), 0 0 40px hsl(var(--neon-purple) / 0.3);
+    --glow-soft: 0 0 30px hsl(var(--neon-blue) / 0.25);
+
+    --transition-smooth: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+
+    --sidebar-background: 240 10% 4%;
+    --sidebar-foreground: 180 20% 96%;
+    --sidebar-primary: 195 100% 55%;
+    --sidebar-primary-foreground: 240 10% 4%;
+    --sidebar-accent: 240 8% 10%;
+    --sidebar-accent-foreground: 180 20% 96%;
+    --sidebar-border: 240 8% 15%;
+    --sidebar-ring: 195 100% 55%;
+  }
+
+  * {
+    /* Using standard CSS instead of @apply to avoid border-color/variable conflicts */
+    border-color: hsl(var(--border));
+  }
+
+  html {
+    scroll-behavior: smooth;
+  }
+
+  body {
+    /* Fixed: Mixing @apply with custom CSS in one block can sometimes fail */
+    background-color: hsl(var(--background));
+    color: hsl(var(--foreground));
+    font-family: 'Inter', system-ui, -apple-system, sans-serif;
+    overflow-x: hidden;
+    cursor: none;
+  }
+
+  h1, h2, h3, h4 {
+    font-family: 'Space Grotesk', 'Inter', sans-serif;
+    letter-spacing: -0.02em;
+  }
+}
+
+@layer components {
+  /* Animated grid background */
+  .grid-bg {
+    background-image:
+      linear-gradient(hsl(var(--neon-blue) / 0.07) 1px, transparent 1px),
+      linear-gradient(90deg, hsl(var(--neon-blue) / 0.07) 1px, transparent 1px);
+    background-size: 50px 50px;
+    animation: grid-move 20s linear infinite;
+  }
+
+  @keyframes grid-move {
+    0% { background-position: 0 0; }
+    100% { background-position: 50px 50px; }
+  }
+
+  .neon-text {
+    background: var(--gradient-text);
+    background-size: 200% 200%;
+    -webkit-background-clip: text;
+    background-clip: text;
+    color: transparent;
+    animation: gradient-shift 6s ease infinite;
+  }
+
+  .neon-border {
+    position: relative;
+    border: 1px solid hsl(var(--neon-blue) / 0.4);
+    box-shadow: var(--glow-soft), inset 0 0 20px hsl(var(--neon-blue) / 0.05);
+    transition: var(--transition-smooth);
+  }
+
+  .neon-border:hover {
+    border-color: hsl(var(--neon-blue) / 0.9);
+    box-shadow: var(--glow-blue), inset 0 0 30px hsl(var(--neon-blue) / 0.1);
+  }
+
+  .glass {
+    background: hsl(240 12% 6% / 0.6);
+    backdrop-filter: blur(16px);
+    -webkit-backdrop-filter: blur(16px);
+    border: 1px solid hsl(var(--neon-blue) / 0.15);
+  }
+
+  .glow-pulse {
+    animation: glow-pulse 3s ease-in-out infinite;
+  }
+
+  @keyframes glow-pulse {
+    0%, 100% { box-shadow: 0 0 20px hsl(var(--neon-blue) / 0.4), 0 0 40px hsl(var(--neon-purple) / 0.2); }
+    50% { box-shadow: 0 0 35px hsl(var(--neon-blue) / 0.7), 0 0 70px hsl(var(--neon-purple) / 0.4); }
+  }
+
+  .float {
+    animation: float 6s ease-in-out infinite;
+  }
+
+  @keyframes float {
+    0%, 100% { transform: translateY(0); }
+    50% { transform: translateY(-12px); }
+  }
+
+  @keyframes gradient-shift {
+    0%, 100% { background-position: 0% 50%; }
+    50% { background-position: 100% 50%; }
+  }
+
+  @keyframes fade-up {
+    0% { opacity: 0; transform: translateY(30px); }
+    100% { opacity: 1; transform: translateY(0); }
+  }
+
+  .reveal {
+    opacity: 0;
+    transform: translateY(30px);
+    transition: opacity 0.8s ease-out, transform 0.8s ease-out;
+  }
+  .reveal.in-view {
+    opacity: 1;
+    transform: translateY(0);
+  }
+
+  .btn-neon {
+    position: relative;
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    padding: 0.85rem 1.75rem;
+    font-weight: 600;
+    border-radius: var(--radius);
+    background: hsl(var(--neon-blue) / 0.1);
+    border: 1px solid hsl(var(--neon-blue));
+    color: hsl(var(--neon-blue));
+    transition: var(--transition-smooth);
+    overflow: hidden;
+    cursor: none;
+    z-index: 1; /* Ensure text stays above ::before */
+  }
+
+  .btn-neon::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: var(--gradient-neon);
+    opacity: 0;
+    transition: var(--transition-smooth);
+    z-index: -1;
+  }
+
+  .btn-neon:hover {
+    color: hsl(var(--background));
+    box-shadow: var(--glow-blue);
+    transform: translateY(-2px);
+  }
+  .btn-neon:hover::before { opacity: 1; }
+
+  .btn-neon-purple {
+    background: hsl(var(--neon-purple) / 0.1);
+    border-color: hsl(var(--neon-purple));
+    color: hsl(var(--neon-purple));
+  }
+  .btn-neon-purple:hover { box-shadow: var(--glow-purple); }
+  .btn-neon-purple::before { background: linear-gradient(135deg, hsl(var(--neon-purple)), hsl(var(--neon-pink))); }
+
+  .cursor-dot,
+  .cursor-ring {
+    position: fixed;
+    top: 0; left: 0;
+    pointer-events: none;
+    z-index: 9999;
+    border-radius: 9999px;
+    transform: translate(-50%, -50%);
+  }
+  .cursor-dot {
+    width: 8px; height: 8px;
+    background: hsl(var(--neon-blue));
+    box-shadow: 0 0 12px hsl(var(--neon-blue));
+    transition: transform 0.1s ease;
+  }
+  .cursor-ring {
+    width: 38px; height: 38px;
+    border: 1.5px solid hsl(var(--neon-blue) / 0.7);
+    box-shadow: 0 0 20px hsl(var(--neon-blue) / 0.5), inset 0 0 10px hsl(var(--neon-blue) / 0.2);
+    transition: width 0.25s ease, height 0.25s ease, border-color 0.25s ease;
+  }
+  .cursor-ring.hovering {
+    width: 60px; height: 60px;
+    border-color: hsl(var(--neon-purple));
+    box-shadow: 0 0 25px hsl(var(--neon-purple) / 0.6);
+  }
+
+  .section-label {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    font-size: 0.75rem;
+    text-transform: uppercase;
+    letter-spacing: 0.25em;
+    color: hsl(var(--neon-green));
+    font-weight: 600;
+  }
+  .section-label::before {
+    content: '';
+    width: 30px;
+    height: 1px;
+    background: hsl(var(--neon-green));
+    box-shadow: 0 0 8px hsl(var(--neon-green));
+  }
+
+  .skill-chip {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    padding: 0.6rem 1.1rem;
+    border-radius: 9999px;
+    background-color: hsl(var(--card));
+    border: 1px solid hsl(var(--neon-blue) / 0.3);
+    color: hsl(var(--foreground));
+    font-size: 0.875rem;
+    font-weight: 500;
+    transition: var(--transition-smooth);
+  }
+  .skill-chip:hover {
+    border-color: hsl(var(--neon-blue));
+    box-shadow: var(--glow-blue);
+    transform: translateY(-3px);
+    color: hsl(var(--neon-blue));
+  }
+
+  .scrollbar-hide::-webkit-scrollbar { display: none; }
+}
