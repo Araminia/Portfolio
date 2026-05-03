@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { Github, Mail, MapPin, Send, User } from "lucide-react";
+import { Mail, MapPin, Send, User } from "lucide-react";
 import { toast } from "sonner";
 import { useReveal } from "../hooks/use-reveal";
 
@@ -49,12 +49,6 @@ const Contact = () => {
       icon: MapPin,
       label: "Based In",
       value: "Marinduque, Philippines",
-    },
-    {
-      icon: Github,
-      label: "GitHub",
-      value: "Araminia / Portfolio",
-      href: "https://github.com/Araminia/Portfolio",
     },
   ];
 
@@ -168,7 +162,6 @@ const Contact = () => {
         </div>
       </div>
 
-      {/* Styles */}
       <style>{`
         .neon-input {
           width: 100%;
